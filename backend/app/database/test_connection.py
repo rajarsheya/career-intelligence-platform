@@ -1,0 +1,20 @@
+from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+print("Database URL:", DATABASE_URL)
+
+engine = create_engine(DATABASE_URL)
+
+try:
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT version();"))
+        print(result.scalar())
+        print("✅ Database connection successful!")
+except Exception as e:
+    print("❌ Connection failed:")
+    print(e)
