@@ -1,9 +1,10 @@
-from scrapers.sources.mock_scraper import MockScraper
+from scrapers.sources.daad_scraper import DAADScraper
 from backend.app.services.opportunity_service import save_opportunities
+
 
 def main():
 
-    scraper = MockScraper()
+    scraper = DAADScraper()
 
     opportunities = scraper.scrape()
 
@@ -13,5 +14,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
