@@ -49,3 +49,7 @@ class MockScraper(BaseScraper):
             )
 
         ]
+
+#from scrapers.sources.daad_scraper import DAADScraper
+
+#scraper = DAADScraper()
