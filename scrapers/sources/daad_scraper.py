@@ -4,10 +4,14 @@ from scrapers.fetcher import Fetcher
 
 class DAADScraper(BaseScraper):
 
-    URL = "https://www.daad.de/en/studying-in-germany/scholarships/"
+    URL = "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/"
 
     def fetch(self):
-        return Fetcher.get(self.URL)
+
+        fetcher = Fetcher()
+
+        return fetcher.get(self.URL)
 
     def parse(self, raw_data):
+
         return []

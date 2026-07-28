@@ -1,23 +1,47 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 
+from scrapers.utils.normalizer import Normalizer
+from scrapers.utils.validator import Validator
+
 from backend.app.database.database import SessionLocal
 from backend.app.models.opportunity import Opportunity
 
 from backend.app.schemas.opportunity import OpportunityCreate
 
 
+def opportunity_exists(db, title, organization):
+
+    return (
+        db.query(Opportunity)
+        .filter(
+            Opportunity.title == title,
+            Opportunity.organization == organization,
+        )
+        .first()
+        is not None
+    )
+
+
 def save_opportunities(opportunities):
     db = SessionLocal()
     try:
         for item in opportunities:
+            if opportunity_exists(
+                db,
+                item.title,
+                item.organization,
+            ):
+                continue
+            if not Validator.validate(item):
+                continue
             opportunity = Opportunity(
-                title=item.title,
-                organization=item.organization,
+                title=Normalizer.normalize_title(item.title),
+                organization=Normalizer.normalize_organization(item.organization),
                 opportunity_type=item.opportunity_type,
-                country=item.country,
+                country=Normalizer.normalize_country(item.country),
                 deadline=item.deadline,
-                url=item.url,
+                url=Normalizer.normalize_url(item.url),
                 description=item.description,
                 requirements=item.requirements
             )
