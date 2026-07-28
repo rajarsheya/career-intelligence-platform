@@ -1,7 +1,7 @@
 from datetime import date
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel,ConfigDict
 
 
 class OpportunityBase(BaseModel):
@@ -15,9 +15,10 @@ class OpportunityBase(BaseModel):
     requirements: Optional[str] = None
 
 
+class OpportunityCreate(OpportunityBase):
+    pass
+
 class OpportunityResponse(OpportunityBase):
     id: int
 
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = ConfigDict(from_attributes=True)
