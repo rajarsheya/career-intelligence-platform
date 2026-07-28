@@ -2,7 +2,6 @@ from backend.app.core.logger import logger
 
 from scrapers.sources.mock_scraper import MockScraper
 from scrapers.sources.sample_rss_scraper import SampleRSSScraper
-#from scrapers.sources.daad_scraper import DAADScraper
 
 
 class ScraperManager:
@@ -12,7 +11,6 @@ class ScraperManager:
         self.scrapers = [
             MockScraper(),
             SampleRSSScraper(),
-            #DAADScraper(),
         ]
 
     def run_all(self):
