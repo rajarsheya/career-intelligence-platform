@@ -4,7 +4,17 @@ from scrapers.opportunity import OpportunityData
 
 class MockScraper(BaseScraper):
 
-    def scrape(self):
+    def fetch(self):
+        """
+        Normally this would download HTML or JSON.
+        Since this is a mock scraper, we simply return dummy data.
+        """
+        return "mock_data"
+
+    def parse(self, raw_data):
+        """
+        Convert the raw data into OpportunityData objects.
+        """
 
         return [
 
@@ -49,7 +59,3 @@ class MockScraper(BaseScraper):
             )
 
         ]
-
-#from scrapers.sources.daad_scraper import DAADScraper
-
-#scraper = DAADScraper()
