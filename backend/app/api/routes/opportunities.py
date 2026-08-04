@@ -12,6 +12,10 @@ from backend.app.services.search_service import (
     get_similar_opportunities,
 )
 
+from backend.app.services.semantic_search_service import (
+    semantic_search,
+)
+
 from backend.app.api.dependencies import get_db
 from backend.app.schemas.opportunity import OpportunityResponse
 from backend.app.services.opportunity_service import (
@@ -132,6 +136,22 @@ def similar_opportunities(
     return get_similar_opportunities(
         db,
         opportunity,
+    )
+
+
+@router.get(
+    "/semantic-search",
+    response_model=list[OpportunityResponse],
+)
+def semantic_search_route(
+    q: str,
+    limit: int = 10,
+    db: Session = Depends(get_db),
+):
+    return semantic_search(
+        db=db,
+        query=q,
+        limit=limit,
     )
 
 

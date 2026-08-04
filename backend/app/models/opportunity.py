@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, Date
 
 from backend.app.database.database import Base
-
+from pgvector.sqlalchemy import Vector
 
 class Opportunity(Base):
     __tablename__ = "opportunities"
@@ -23,3 +23,8 @@ class Opportunity(Base):
     description = Column(Text)
 
     requirements = Column(Text)
+
+    embedding = Column(
+        Vector(768),
+        nullable=True,
+    )
