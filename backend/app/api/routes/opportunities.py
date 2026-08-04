@@ -1,10 +1,15 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
 from backend.app.schemas.opportunity import (
     OpportunityCreate,
     OpportunityResponse,
+)
+
+from backend.app.services.search_service import (
+    search_opportunities,
+    get_similar_opportunities,
 )
 
 from backend.app.api.dependencies import get_db
@@ -35,8 +40,14 @@ def list_opportunities(
     country: str | None = None,
     opportunity_type: str | None = None,
     organization: str | None = None,
-    skip: int = 0,
-    limit: int = 20,
+    keyword: str | None = None,
+
+    skip: int = Query(0, ge=0),
+    limit: int = Query(20, ge=1, le=100),
+
+    sort_by: str = "id",
+    sort_order: str = "asc",
+
     db: Session = Depends(get_db),
 ):
     return get_all_opportunities(
@@ -44,8 +55,11 @@ def list_opportunities(
         country=country,
         opportunity_type=opportunity_type,
         organization=organization,
+        keyword=keyword,
         skip=skip,
         limit=limit,
+        sort_by=sort_by,
+        sort_order=sort_order,
     )
 
 
@@ -96,6 +110,28 @@ def search(
     return search_opportunities(
         db=db,
         keyword=q,
+    )
+
+
+@router.get(
+    "/{opportunity_id}/similar",
+    response_model=list[OpportunityResponse],
+)
+def similar_opportunities(
+    opportunity_id: int,
+    db: Session = Depends(get_db),
+):
+    opportunity = get_opportunity(
+        db,
+        opportunity_id,
+    )
+    if opportunity is None:
+        raise OpportunityNotFoundException(
+            f"Opportunity {opportunity_id} not found"
+        )
+    return get_similar_opportunities(
+        db,
+        opportunity,
     )
 
 
