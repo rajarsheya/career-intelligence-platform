@@ -49,3 +49,50 @@ def test_create():
     body = response.json()
 
     assert body["title"] == "Testing Internship"
+
+
+def test_filter_by_country():
+
+    response = client.get(
+        "/opportunities/?country=United States"
+    )
+
+    assert response.status_code == 200
+
+
+def test_keyword_filter():
+
+    response = client.get(
+        "/opportunities/?keyword=Python"
+    )
+
+    assert response.status_code == 200
+
+
+def test_pagination():
+
+    response = client.get(
+        "/opportunities/?skip=0&limit=2"
+    )
+
+    assert response.status_code == 200
+
+    assert len(response.json()) <= 2
+
+
+def test_sorting():
+
+    response = client.get(
+        "/opportunities/?sort_by=title&sort_order=asc"
+    )
+
+    assert response.status_code == 200
+
+
+def test_similar_opportunities():
+
+    response = client.get(
+        "/opportunities/1/similar"
+    )
+
+    assert response.status_code == 200

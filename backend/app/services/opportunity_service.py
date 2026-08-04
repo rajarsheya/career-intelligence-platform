@@ -56,19 +56,51 @@ def get_all_opportunities(
     country: str | None = None,
     opportunity_type: str | None = None,
     organization: str | None = None,
+    keyword=None,
     skip: int = 0,
     limit: int = 20,
+    sort_by="id",
+    sort_order="asc",
 ):  
     query = db.query(Opportunity)
     if country:
-        query = query.filter(Opportunity.country == country)
+        query = query.filter(Opportunity.country.ilike(f"%{country}%"))
     if opportunity_type:
-        query = query.filter(
-            Opportunity.opportunity_type == opportunity_type
-        )
+        query = query.filter(Opportunity.opportunity_type.ilike(f"%{opportunity_type}%"))
     if organization:
+        query = query.filter(Opportunity.organization.ilike(f"%{organization}%"))
+    if keyword:
         query = query.filter(
-            Opportunity.organization == organization
+            or_(
+                Opportunity.title.ilike(
+                    f"%{keyword}%"
+                ),
+                Opportunity.description.ilike(
+                    f"%{keyword}%"
+                ),
+                Opportunity.requirements.ilike(
+                    f"%{keyword}%"
+                ),
+            )
+        )
+    allowed_sort_fields = {
+        "id": Opportunity.id,
+        "title": Opportunity.title,
+        "organization": Opportunity.organization,
+        "country": Opportunity.country,
+        "deadline": Opportunity.deadline,
+    }
+    sort_column = allowed_sort_fields.get(
+        sort_by,
+        Opportunity.id,
+    )
+    if sort_order.lower() == "desc":
+        query = query.order_by(
+            sort_column.desc()
+        )
+    else:
+        query = query.order_by(
+            sort_column.asc()
         )
     return query.offset(skip).limit(limit).all()
 
