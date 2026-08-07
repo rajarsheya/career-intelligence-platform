@@ -1,129 +1,226 @@
 # Scholarship & Career Intelligence Platform
 
+An AI-powered platform for discovering scholarships, internships, fellowships, research programs, grants, and career opportunities through intelligent search and personalized recommendations.
+
 ## Overview
 
-The Scholarship & Career Intelligence Platform helps students and professionals discover scholarships, internships, fellowships, research programs, grants, and job opportunities from multiple sources.
+The Scholarship & Career Intelligence Platform centralizes opportunity discovery and uses semantic search, vector embeddings, resume matching, and Generative AI to help users find relevant opportunities.
 
-The platform automatically collects opportunities, processes and enriches the data through streaming pipelines, and provides personalized recommendations using machine learning and Retrieval-Augmented Generation (RAG).
+The platform supports both traditional keyword search and natural-language discovery, along with personalized recommendations and an AI assistant.
 
 ---
 
 ## Key Features
 
-### Opportunity Discovery
+### 🔎 Opportunity Discovery
 
-* Scholarship aggregation
-* Internship tracking
-* Fellowship discovery
-* Research opportunity search
-* Job opportunity collection
+* Scholarships, internships, fellowships, research programs, and jobs
+* Keyword-based search
+* Semantic search using embeddings
+* Opportunity filtering and sorting
+* Detailed opportunity pages
+* Similar opportunity discovery
 
-### AI-Powered Recommendations
+### 🎯 Personalized Recommendations
 
-* Personalized matching
-* Semantic search
-* Resume-to-opportunity matching
-* Career path recommendations
-* Skill gap analysis
+* Resume PDF upload
+* Automatic resume text extraction
+* Resume embedding generation
+* Semantic resume-to-opportunity matching
+* Ranked personalized recommendations
 
-### Real-Time Data Processing
+### 🤖 AI Assistant
 
-* Event-driven ingestion
-* Streaming ETL pipelines
-* Data quality validation
-* Historical opportunity warehouse
-
-### Cloud-Native Architecture
-
-* Kubernetes deployment
-* API Gateway
-* Infrastructure as Code
-* Automated CI/CD
-* Centralized monitoring
+* Natural-language questions about opportunities
+* Semantic retrieval of relevant opportunities
+* RAG-based context generation
+* Gemini-powered responses
+* Grounded answers based on available opportunity data
 
 ---
 
 ## Architecture
 
-Opportunity Sources
-→ Pub/Sub
-→ Dataflow
-→ Data Lake (Cloud Storage)
-→ BigQuery
-→ Recommendation Engine
-→ Vector Database
-→ RAG Assistant
-→ API Gateway
-→ Web Application
+```text
+Opportunity Data
+      │
+      ▼
+PostgreSQL + pgvector
+      │
+      ├───────────────┐
+      ▼               ▼
+Semantic Search   Similarity Search
+      │               │
+      └───────┬───────┘
+              ▼
+       Relevant Opportunities
+              │
+       ┌──────┴──────┐
+       ▼             ▼
+Recommendations   RAG Assistant
+       │             │
+       ▼             ▼
+ Resume Matching   Gemini
+```
+
+### Recommendation Flow
+
+```text
+Resume PDF
+   ↓
+Text Extraction
+   ↓
+Resume Embedding
+   ↓
+Vector Similarity Search
+   ↓
+Personalized Recommendations
+```
+
+### AI Assistant Flow
+
+```text
+User Question
+   ↓
+Semantic Search
+   ↓
+Relevant Opportunities
+   ↓
+RAG Context
+   ↓
+Gemini
+   ↓
+AI Response
+```
 
 ---
 
 ## Technology Stack
 
-### Cloud
+### Frontend
 
-* Google Cloud Platform
-* GKE
-* Cloud Run
-* Pub/Sub
-* Dataflow
-* BigQuery
-* Cloud Storage
-* Secret Manager
-* API Gateway
-* Cloud Monitoring
-* Cloud Logging
-
-### Data Engineering
-
-* Apache Airflow / Composer
-* Streaming ETL
-* Data Quality Framework
-* Data Lake Architecture
-
-### Machine Learning
-
-* Vertex AI
-* MLflow
-* Vector Search
-* RAG Pipelines
-* Recommendation Models
+* React
+* JavaScript
+* React Router
+* REST API integration
+* Responsive CSS
 
 ### Backend
 
-* FastAPI
 * Python
+* FastAPI
+* SQLAlchemy
+* Pydantic
+* Uvicorn
+* PyPDF
+
+### Database & AI
+
 * PostgreSQL
-* Redis
-
-### DevOps
-
-* Docker
-* Kubernetes
-* Terraform
-* GitHub Actions
+* pgvector
+* Vector embeddings
+* Semantic search
+* Recommendation matching
+* Retrieval-Augmented Generation (RAG)
+* Google Gemini
 
 ---
 
-## Future Roadmap
+## API
 
-* AI career mentor
-* Scholarship application assistant
-* University recommendation engine
-* Research collaboration discovery
-* Global fellowship intelligence network
+### Opportunities
+
+```text
+GET  /opportunities/
+GET  /opportunities/search
+GET  /opportunities/semantic-search
+GET  /opportunities/{opportunity_id}
+GET  /opportunities/{opportunity_id}/similar
+```
+
+### Recommendations
+
+```text
+POST /recommendations/
+```
+
+Upload a resume PDF to receive personalized opportunity recommendations.
+
+### AI Assistant
+
+```text
+POST /assistant/
+```
+
+Submit a natural-language question and receive an AI-generated response with relevant opportunities.
+
+Interactive API documentation is available at:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+## Running Locally
+
+### Backend
+
+```bash
+python -m venv .venv
+source .venv/Scripts/activate
+pip install -r requirements.txt
+
+python -m uvicorn backend.app.main:app --reload
+```
+
+### Frontend
+
+```bash
+npm install
+npm run dev
+```
+
+Create a `.env` file with your required configuration:
+
+```env
+DATABASE_URL=your_database_url
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+Do not commit API keys or `.env` files to Git.
+
+---
+
+## Project Status
+
+| Feature                      | Status |
+| ---------------------------- | ------ |
+| Opportunity discovery        | ✅      |
+| Keyword search               | ✅      |
+| Semantic search              | ✅      |
+| Opportunity embeddings       | ✅      |
+| Similar opportunities        | ✅      |
+| Resume processing            | ✅      |
+| Personalized recommendations | ✅      |
+| RAG pipeline                 | ✅      |
+| Gemini AI Assistant          | ✅      |
+| React frontend               | ✅      |
+| FastAPI backend              | ✅      |
 
 ---
 
 ## Learning Objectives
 
-This project demonstrates:
+This project demonstrates practical experience with:
 
-* Cloud Architecture
-* Data Engineering
-* Distributed Systems
-* MLOps
+* Full-stack development
+* REST API design
+* PostgreSQL and vector databases
+* Semantic search
+* Embeddings and similarity search
+* Recommendation systems
+* Resume processing
+* Retrieval-Augmented Generation
 * Generative AI
-* Event-Driven Design
-* Kubernetes Deployment
-* Infrastructure Automation
+* React and FastAPI
