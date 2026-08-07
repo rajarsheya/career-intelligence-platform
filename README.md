@@ -11,7 +11,7 @@ The platform supports both traditional keyword search and natural-language disco
 ---
 ## Demo Video
 
-### Link : https://youtu.be/aZHRaB4E8WY
+### Demo Link: https://youtu.be/aZHRaB4E8WY
 
 ---
 ## Key Features
