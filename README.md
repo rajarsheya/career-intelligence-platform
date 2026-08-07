@@ -9,7 +9,11 @@ The Scholarship & Career Intelligence Platform centralizes opportunity discovery
 The platform supports both traditional keyword search and natural-language discovery, along with personalized recommendations and an AI assistant.
 
 ---
+## Demo Video
 
+### Link : https://youtu.be/aZHRaB4E8WY
+
+---
 ## Key Features
 
 ### 🔎 Opportunity Discovery
