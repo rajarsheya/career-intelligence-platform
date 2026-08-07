@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import Opportunities from "./pages/Opportunities";
 import OpportunityDetailsPage from "./pages/OpportunityDetailsPage";
 import Footer from "./components/Footer";
+import Recommendations from "./pages/Recommendations";
+import Assistant from "./pages/Assistant";
 
 
 function App() {
@@ -41,6 +43,17 @@ function App() {
                                 <OpportunityDetailsPage />
                             }
                         />
+
+                        <Route
+                            path="/recommendations"
+                            element={<Recommendations />}
+                        />
+
+                        <Route
+                            path="/assistant"
+                            element={<Assistant />}
+                        />
+
 
                     </Routes>
 

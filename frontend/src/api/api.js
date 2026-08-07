@@ -1,3 +1,4 @@
+
 const API_BASE_URL = "http://127.0.0.1:8000";
 
 
@@ -101,4 +102,59 @@ export async function getSimilarOpportunities(opportunityId) {
 export async function healthCheck() {
 
     return request("/health");
+}
+
+export async function getRecommendations(
+    resumeFile,
+    limit = 10
+) {
+    const formData = new FormData();
+    formData.append(
+        "file",
+        resumeFile
+    );
+    const response = await fetch(
+        `${API_BASE_URL}/recommendations/?limit=${limit}`,
+        {
+            method: "POST",
+            body: formData,
+        }
+    );
+    if (!response.ok) {
+        const errorText =
+            await response.text();
+
+        throw new Error(
+            errorText ||
+            "Failed to generate recommendations"
+        );
+    }
+    return response.json();
+}
+
+
+export async function askAssistant(
+    query
+) {
+    const response = await fetch(
+        `${API_BASE_URL}/assistant/`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                query,
+            }),
+        }
+    );
+    if (!response.ok) {
+        const errorText =
+            await response.text();
+        throw new Error(
+            errorText ||
+            "Failed to contact AI assistant"
+        );
+    }
+    return response.json();
 }

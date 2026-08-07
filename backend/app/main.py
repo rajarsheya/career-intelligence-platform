@@ -10,6 +10,14 @@ from backend.app.exceptions.handlers import (
     generic_exception_handler,
 )
 
+from backend.app.api.routes.recommendations import (
+    router as recommendation_router,
+)
+
+from backend.app.api.routes.assistant import (
+    router as assistant_router,
+)
+
 app = FastAPI(
     title="Scholarship & Career Intelligence Platform",
     version="1.0.0"
@@ -31,7 +39,8 @@ def health():
 
 # Register API routers
 app.include_router(opportunity_router)
-
+app.include_router(recommendation_router)
+app.include_router(assistant_router)
 app.include_router(scraper_router)
 
 app.add_exception_handler(
