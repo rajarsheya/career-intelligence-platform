@@ -47,7 +47,7 @@ def list_opportunities(
     keyword: str | None = None,
 
     skip: int = Query(0, ge=0),
-    limit: int = Query(20, ge=1, le=100),
+    limit: int = Query(100, ge=1, le=100),
 
     sort_by: str = "id",
     sort_order: str = "asc",
@@ -145,7 +145,7 @@ def similar_opportunities(
 )
 def semantic_search_route(
     q: str,
-    limit: int = 10,
+    limit: int = 50,
     db: Session = Depends(get_db),
 ):
     return semantic_search(
