@@ -1,62 +1,117 @@
 import { Link } from "react-router-dom";
 
+function OpportunityCard({ opportunity }) {
+if (!opportunity) {
+return null;
+}
 
-function OpportunityCard({
-    opportunity
-}) {
 
-    return (
+const {
+    id,
+    title = "Untitled Opportunity",
+    organization = "Organization not specified",
+    opportunity_type = "Opportunity",
+    country = "Location not specified",
+    deadline,
+    description,
+    url,
+    match_score,
+    similarity_score,
+} = opportunity;
 
-        <div className="opportunity-card">
+const formattedDeadline = deadline
+    ? new Date(deadline).toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+      })
+    : null;
 
-            <h3>
-                {opportunity.title}
+const score = match_score ?? similarity_score;
+
+return (
+    <article className="opportunity-card">
+
+        <div className="opportunity-card-top">
+
+            <span className="opportunity-type">
+                {opportunity_type}
+            </span>
+
+            {score !== undefined && score !== null && (
+                <span className="match-score">
+                    {typeof score === "number"
+                        ? `${Math.round(score)}% Match`
+                        : score}
+                </span>
+            )}
+
+        </div>
+
+        <div className="opportunity-card-content">
+
+            <h3 className="opportunity-title">
+                {title}
             </h3>
 
             <p className="organization">
-                {opportunity.organization}
+                {organization}
             </p>
 
-            <div className="opportunity-meta">
+            <div className="opportunity-info">
 
-                <span>
-                    {opportunity.opportunity_type}
-                </span>
+                {country && (
+                    <span>
+                        <span className="info-icon">⌖</span>
+                        {country}
+                    </span>
+                )}
 
-                <span>
-                    {opportunity.country}
-                </span>
+                {formattedDeadline && (
+                    <span>
+                        <span className="info-icon">◷</span>
+                        {formattedDeadline}
+                    </span>
+                )}
 
             </div>
 
-
-            {opportunity.description && (
-
+            {description && (
                 <p className="description">
-
-                    {opportunity.description.slice(
-                        0,
-                        200
-                    )}
-
-                    {opportunity.description.length >
-                        200 && "..."}
+                    {description.length > 180
+                        ? `${description.slice(0, 180)}...`
+                        : description}
                 </p>
-
             )}
 
+        </div>
+
+        <div className="opportunity-card-footer">
+
+            {url ? (
+                <span className="external-indicator">
+                    Application available
+                </span>
+            ) : (
+                <span className="external-indicator">
+                    Details available
+                </span>
+            )}
 
             <Link
-                to={`/opportunities/${opportunity.id}`}
+                to={`/opportunities/${id}`}
                 className="view-button"
             >
                 View Details
+                <span aria-hidden="true"> →</span>
             </Link>
 
         </div>
 
-    );
-}
+    </article>
+);
 
+
+}
 
 export default OpportunityCard;

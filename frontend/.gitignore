@@ -1,24 +1,217 @@
+# =========================
+
+# Python
+
+# =========================
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+*.so
+
+# Virtual environments
+
+.venv/
+.venv-1/
+venv/
+env/
+ENV/
+
+# Python packaging
+
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# =========================
+
+# Environment Variables
+
+# =========================
+
+.env
+.env.*
+!.env.example
+
+# =========================
+
+# Testing / Coverage
+
+# =========================
+
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# =========================
+
 # Logs
-logs
+
+# =========================
+
 *.log
+logs/
+
+# =========================
+
+# Alembic
+
+# =========================
+
+# Keep migration files tracked.
+
+# Do NOT ignore alembic/versions/
+
+# =========================
+
+# Node / React / Vite
+
+# =========================
+
+frontend/node_modules/
+node_modules/
+
+frontend/dist/
+dist/
+
+frontend/.vite/
+.vite/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# =========================
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# React / Vite Environment
+
+# =========================
+
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# =========================
+
+# IDE / Editors
+
+# =========================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =========================
+
+# Operating System
+
+# =========================
+
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
+Desktop.ini
+
+# =========================
+
+# Jupyter
+
+# =========================
+
+.ipynb_checkpoints/
+
+# =========================
+
+# Database / Local Data
+
+# =========================
+
+*.sqlite
+*.sqlite3
+*.db
+
+# =========================
+
+# Temporary Files
+
+# =========================
+
+*.tmp
+*.temp
+.cache/
+temp/
+tmp/
+
+# =========================
+
+# Scraper / Generated Data
+
+# =========================
+
+scrapers/**pycache**/
+data/raw/
+data/processed/
+
+# =========================
+
+# Local AI / Embedding Data
+
+# =========================
+
+embeddings/
+*.npy
+*.npz
+*.faiss
+
+# =========================
+
+# Secrets / Credentials
+
+# =========================
+
+*.pem
+*.key
+credentials.json
+service-account*.json
+
+# =========================
+
+# Windows
+
+# =========================
+
+*.stackdump
+ehthumbs.db
+
+# =========================
+
+# Build / Generated Files
+
+# =========================
+
+*.map
+*.tsbuildinfo
